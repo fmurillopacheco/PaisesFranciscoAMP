@@ -6,7 +6,8 @@
 package es.albarregas.controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.Date;
+import java.util.Locale;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,69 +21,46 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "Formato", urlPatterns = {"/Formato"})
 public class Formato extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Formato</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Formato at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String url = null;
+        String codigo = "";
+        String codIdioma = "";
+        String codPais = "";
+        String pais = "";
+        Date fecha = null;
+        Locale idioma = null;
+        Double numero = 20000d / 3;
+        
+        if(request.getParameter("pais").equals("-1")){
+            url = "JSP/paises.jsp";
+        } else{
+            if(request.getParameter("menu") != null){
+                url = "../index.jsp";
+            } else if(request.getParameter("enviar") != null){
+                codIdioma = request.getParameter("pais").substring(0, 2);
+                codPais = request.getParameter("pais").substring(3, 5);
+                String[] arrayPaisYCodigo = request.getParameter("pais").split("-");
+                pais = arrayPaisYCodigo[1];
+                codigo = arrayPaisYCodigo[0];
+                fecha = new Date();
+                idioma = new Locale(codIdioma, codPais);
+                
+                request.setAttribute("numero", numero);
+                request.setAttribute("codIdioma", codIdioma);
+                request.setAttribute("codPais", codPais);
+                request.setAttribute("codigo", codigo);
+                request.setAttribute("pais", pais);
+                request.setAttribute("fecha", fecha);
+                request.setAttribute("idioma", idioma);
+                
+                
+                url = "JSP/descripcionPais.jsp";
+            }
+        }
+        
+        request.getRequestDispatcher(url).forward(request, response);
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }
