@@ -1,6 +1,6 @@
 <%-- 
-    Document   : paises
-    Created on : 27-may-2020, 14:25:12
+    Document   : index
+    Created on : 28-may-2020, 13:30:24
     Author     : Francisco_Antonio
 --%>
 
@@ -14,30 +14,20 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        <title>Men&uacute; Paises del Mundo.</title>
+        <title>PaisesFranciscoAMP</title>
     </head>
     <body>
         <div class="jumbotron text-center">
             <h1>Paises del mundo.</h1>
             <p>Pulsa en la imagen para acceder a la aplicaci&oacute;n.</p> 
         </div>
-        <div class="container">
-            <form action="Formato" method="post">
-                <c:set var="paises" value="${paises}"/>
-                <select class="form-control" name="pais">
-                    <option value="-1" selected="true">Elige un país</option>
-                    <c:forEach var="pais" items="${paises}">
-                        <option value="${pais.value}-${pais.key}">${pais.key}</option>
-                    </c:forEach>
-                </select>
-                <br><br>
-            <div class="col text-center">    
-                <button type="submit" class="btn btn-primary" name="enviar" value="Enviar"/>Enviar
-                <button type="submit" class="btn btn-primary" name="menu" value="Menu"/>Salir
+        
+        <form action="Pais" method="post">
+            <img src="IMG/mapaMundial.gif" class="rounded mx-auto d-block" alt="Cinque Terre" width="304" height="236"> 
+            <br>
+            <div class="col text-center">
+                <button type="submit" name="paises" class="btn btn-info" value="Paises">Info Paises</button>
             </div>
-            </form>
-
-
-        </div>
+        </form>
     </body>
 </html>

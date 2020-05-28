@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package es.albarregas.controllers;
 
 import java.io.IOException;
@@ -31,13 +27,13 @@ public class Formato extends HttpServlet {
         String pais = "";
         Date fecha = null;
         Locale idioma = null;
-        Double numero = 20000d / 3;
+        Double numero = 100000d / 3;
         
         if(request.getParameter("pais").equals("-1")){
             url = "JSP/paises.jsp";
         } else{
             if(request.getParameter("menu") != null){
-                url = "../index.jsp";
+                url = "index.jsp";
             } else if(request.getParameter("enviar") != null){
                 codIdioma = request.getParameter("pais").substring(0, 2);
                 codPais = request.getParameter("pais").substring(3, 5);
@@ -45,7 +41,7 @@ public class Formato extends HttpServlet {
                 pais = arrayPaisYCodigo[1];
                 codigo = arrayPaisYCodigo[0];
                 fecha = new Date();
-                idioma = new Locale(codIdioma, codPais);
+                idioma = new Locale(codIdioma,codPais);
                 
                 request.setAttribute("numero", numero);
                 request.setAttribute("codIdioma", codIdioma);
